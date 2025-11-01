@@ -16,9 +16,7 @@ This project demonstrates GUI development in Python and provides basic arithmeti
 ---
 
 ## 🖥️ Screenshot
-
-> *(Optional — add a screenshot of your calculator here)*  
-> Example:  
+ 
 > ![Calculator Screenshot](images/screenshot.png)
 
 ---
