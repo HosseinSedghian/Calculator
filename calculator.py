@@ -134,34 +134,24 @@ def btnremove_command():
             eres.insert(tk.END, "0")
 btnremove = tk.Button(root, text="⌫", bg="#313131", fg="white", command=btnremove_command)
 
-def makeup_operations(inputX : str):
-    etemp.insert(0, f"{eres.get()} {inputX} ")
-    global op1
-    op1 = float(eres.get())
-    global operator
-    operator = inputX
-    eres.delete(0, tk.END)
-    eres.insert(tk.END, "0")
-
 def unary_operation(inputOpp : str):
-    etemp.insert(0, f"{inputOpp}{eres.get()}")
-    global op1
-    op1 = float(eres.get())
-    if op1.is_integer():
-        op1 = int(op1)
+    etemp.insert(tk.END, f"{inputOpp}{eres.get()}")
+    enteredOp = float(eres.get())
+    if enteredOp.is_integer():
+        enteredOp = int(enteredOp)
     eres.delete(0, tk.END)
     if inputOpp == "√":
-        result = math.sqrt(op1)
+        result = math.sqrt(enteredOp)
         if result.is_integer():
             result = int(result)
         eres.insert(0, str(result))
     if inputOpp == "^":
-        result = math.pow(op1, 2)
+        result = math.pow(enteredOp, 2)
         if result.is_integer():
             result = int(result)
         eres.insert(0, str(result))
     if inputOpp == "1/":
-        result = 1.0 / op1
+        result = 1.0 / enteredOp
         if result.is_integer():
             result = int(result)
         eres.insert(0, str(result))
@@ -179,69 +169,62 @@ def btnsqrt_command():
 btnsqrt = tk.Button(root, text="√x", bg="#313131", fg="white", command=btnsqrt_command)
 
 def btndiv_command():
-    global operatorFlag
-    if operatorFlag == False:
-        operatorFlag = True
-        makeup_operations("/")
-    else:
-        double_operations("/")
+    makeup_operations("/")
+    
 btndiv = tk.Button(root, text="÷", bg="#313131", fg="white", command=btndiv_command)
 
 def btnmul_command():
-    global operatorFlag
-    if operatorFlag == False:
-        operatorFlag = True
-        makeup_operations("*")
-    else:
-        double_operations("*")
+    makeup_operations("*")
+    
 btnmul = tk.Button(root, text="×", bg="#313131", fg="white", command=btnmul_command)
 
 def btnsubt_command():
-    global operatorFlag
-    if operatorFlag == False:
-        operatorFlag = True
-        makeup_operations("-")
-    else:
-        double_operations("-")
+    makeup_operations("-")
+
 btnsubt = tk.Button(root, text="-", bg="#313131", fg="white", command=btnsubt_command)
 
 def btnsum_command():
+    makeup_operations("+")
+
+btnsum = tk.Button(root, text="+", bg="#313131", fg="white", command=btnsum_command)
+
+def makeup_operations(inputX : str):
+    global operator
+    global op1
+    global op2
     global operatorFlag
     if operatorFlag == False:
         operatorFlag = True
-        makeup_operations("+")
+        etemp.insert(0, f"{eres.get()} {inputX} ")
+        op1 = float(eres.get())
+        operator = inputX
+        eres.delete(0, tk.END)
+        eres.insert(tk.END, "0")
     else:
-        double_operations("+")
-btnsum = tk.Button(root, text="+", bg="#313131", fg="white", command=btnsum_command)
-
-def double_operations(inputOperator):
-    global op2
-    op2 = float(eres.get())
-    if op2.is_integer():
-        op2 = int(op2)
-    global operator
-    global op1
-    tempstring = etemp.get()
-    etemp.delete(0, tk.END)
-    etemp.insert(tk.END, f"{tempstring} {op2} {inputOperator}")
-    if operator == "+":
-        result = op1 + op2
-        op1 = result
-        operator = inputOperator
-    elif operator == "-":
-        result = op1 - op2
-        op1 = result
-        operator = inputOperator
-    elif operator == "*":
-        result = op1 * op2
-        op1 = result
-        operator = inputOperator
-    elif operator == "/":
-        result = op1 / op2
-        op1 = result
-        operator = inputOperator
-    eres.delete(0, tk.END)
-    eres.insert(tk.END, "0")
+        op2 = float(eres.get())
+        if op2.is_integer():
+            op2 = int(op2)
+        tempstring = etemp.get()
+        etemp.delete(0, tk.END)
+        etemp.insert(tk.END, f"{tempstring} {op2} {inputX}")
+        if operator == "+":
+            result = op1 + op2
+            op1 = result
+            operator = inputX
+        elif operator == "-":
+            result = op1 - op2
+            op1 = result
+            operator = inputX
+        elif operator == "*":
+            result = op1 * op2
+            op1 = result
+            operator = inputX
+        elif operator == "/":
+            result = op1 / op2
+            op1 = result
+            operator = inputX
+        eres.delete(0, tk.END)
+        eres.insert(tk.END, "0")
 
 def result_makeup(inputResult):
     global op1
